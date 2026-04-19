@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyncUp - Campus Match</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loginScreen" class="app-screen glass-login">
+        <div class="login-panel">
+            <div class="lion-logo-main">
+                <svg viewBox="0 0 100 100" class="logo-svg">
+                    <path d="M50,10 L85,35 L75,80 L50,95 L25,80 L15,35 Z" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                    <path d="M40,40 L60,40 L50,60 Z" fill="#2c3e50"/>
+                    <circle cx="35" cy="35" r="3" fill="#2c3e50"/>
+                    <circle cx="65" cy="35" r="3" fill="#2c3e50"/>
+                    <path d="M30,15 L35,25 M70,15 L65,25" stroke="#2c3e50" stroke-width="2"/>
+                </svg>
+            </div>
+            <h1>SyncUp</h1>
+            <p class="subtitle">Campus Collaboration Hub</p>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required placeholder="Enter your name">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="********">
+                </div>
+                <button type="submit" class="btn-primary">Authenticate</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="mainApp" class="app-screen hidden">
+        <nav class="app-header">
+            <div class="nav-left">
+                <svg viewBox="0 0 100 100" class="logo-svg-mini">
+                    <path d="M50,10 L85,35 L75,80 L50,95 L25,80 L15,35 Z" fill="none" stroke="white" stroke-width="3"/>
+                </svg>
+                <h1 id="welcomeUser">SyncUp</h1>
+            </div>
+            <div class="nav-right">
+                <span class="user-badge" title="Campus Reputation Score">Reliability: <strong>95/100</strong></span>
+            </div>
+        </nav>
+
+        <main class="dashboard">
+            <aside class="matching-form-panel">
+                <h2 class="section-title">✨ Create a Session</h2>
+                <form id="matchForm">
+                    <div class="form-group">
+                        <label for="activityType">Activity Type</label>
+                        <select id="activityType" required>
+                            <option value="" disabled selected>Select activity...</option>
+                            <option value="Study Session">📖 Study Session</option>
+                            <option value="Sports Activity">⚽ Sports Activity</option>
+                            <option value="Cab Sharing">🚕 Cab Sharing</option>
+                        </select>
+                    </div>
+
+                    <div id="studyGroup" class="dynamic-field" style="display:none;">
+                        <div class="form-group">
+                            <label for="studyDesc">Subject/Topic</label>
+                            <input type="text" id="studyDesc" placeholder="e.g., DSA Midsem Prep">
+                        </div>
+                    </div>
+
+                    <div id="sportGroup" class="dynamic-field" style="display:none;">
+                        <div class="form-group">
+                            <label for="sportDesc">Sport Name</label>
+                            <input type="text" id="sportDesc" placeholder="e.g., Badminton">
+                        </div>
+                        <div class="form-group">
+                            <label for="skillLevel">Difficulty Level</label>
+                            <select id="skillLevel">
+                                <option value="Beginner">Beginner (Friendly)</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced (Competitive)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="cabGroup" class="dynamic-field" style="display:none;">
+                        <div class="form-group">
+                            <label for="cabDest">Destination</label>
+                            <input type="text" id="cabDest" placeholder="e.g., Airport T2">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="maxCapacity">Total Capacity (Including you)</label>
+                        <input type="number" id="maxCapacity" min="2" max="20" value="4">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="timeSelection">Preferred Time</label>
+                        <input type="time" id="timeSelection" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customVenue">Venue (Optional Override)</label>
+                        <input type="text" id="customVenue" placeholder="Leave blank for auto-assignment">
+                    </div>
+
+                    <button type="submit" class="btn-primary">Broadcast to Campus</button>
+                </form>
+            </aside>
+
+            <section class="feed-section">
+                <h2 class="section-title">📢 Campus Feed</h2>
+                <div id="tweetFeed"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="chatModal" class="hidden chat-overlay">
+        <div class="chat-container">
+            <header>
+                <h2 id="chatWithUser">Chat Connection</h2>
+                <button id="closeChat" class="btn-icon">&times;</button>
+            </header>
+            <div id="chatMessages"></div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Type a message...">
+                <button id="sendBtn" class="btn-primary-mini">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="paymentModal" class="hidden chat-overlay">
+        <div class="chat-container payment-container">
+            <header class="gpay-header">
+                <h2>Secure Checkout</h2>
+                <button id="closePayment" class="btn-icon">&times;</button>
+            </header>
+            <div class="payment-body">
+                <div class="gpay-logo">GPay Simulator</div>
+                <div class="payment-details">
+                    <p class="pay-to">Paying to</p>
+                    <h3 id="payVendorName">Vendor Name</h3>
+                    <div class="pay-amount" id="payAmountText">₹0</div>
+                </div>
+                <button id="confirmPayBtn" class="btn-pay">Pay Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
