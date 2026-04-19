@@ -121,3 +121,41 @@ input:focus, select:focus { border-color: var(--primary); outline: none; box-sha
 .pay-amount { font-size: 2.5rem; font-weight: bold; color: var(--dark); margin-bottom: 30px;}
 .btn-pay { background: #34a853; color: white; width: 100%; border: none; padding: 15px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer;}
 .btn-pay:hover { background: #2d9249; }
+/* 6. ONBOARDING PREFERENCE PILLS (TINDER-STYLE) */
+.pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.pill {
+    background: var(--white);
+    border: 1px solid #ccd6dd;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--gray);
+    font-weight: 600;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+/* Hide the actual ugly checkbox */
+.pill input[type="checkbox"] {
+    display: none;
+}
+
+/* When the hidden checkbox is checked, style the label (pill) */
+.pill:has(input:checked) {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(29, 161, 242, 0.3);
+}
+
+.pill:hover:not(:has(input:checked)) {
+    background: #f5f8fa;
+    border-color: #aab8c2;
+}
