@@ -444,3 +444,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
     closeChat.onclick = () => chatModal.classList.add("hidden");
 });
+document.addEventListener("DOMContentLoaded", () => {
+    // DOM Elements
+    const loginForm = document.getElementById("loginForm");
+    const loginScreen = document.getElementById("loginScreen");
+    const onboardingScreen = document.getElementById("onboardingScreen"); // NEW
+    const onboardingForm = document.getElementById("onboardingForm");     // NEW
+    const mainApp = document.getElementById("mainApp");
+    const usernameInput = document.getElementById("username");
+    
+    // ... (Keep all your other DOM element variables like activityType, matchForm, etc.)
+
+    let currentUser = "";
+    let feedPostCount = 0; 
+
+    // ... (Keep your initialTweets and adPool arrays here)
+
+    // 1. Authentication -> Leads to Onboarding instead of Main App
+    loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const userVal = usernameInput.value.trim();
+        if(userVal) {
+            currentUser = userVal;
+            document.getElementById("welcomeUser").innerText = "Welcome, " + currentUser;
+            
+            // Hide Login, Show Preferences
+            loginScreen.classList.add("hidden");
+            onboardingScreen.classList.remove("hidden"); 
+        }
+    });
+
+    // 1.5. Onboarding Submission -> Leads to Main App
+    onboardingForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        // Hide Preferences, Show Main App
+        onboardingScreen.classList.add("hidden");
+        mainApp.classList.remove("hidden");
+        
+        // Load the feed only after they finish onboarding
+        loadInitialFeed(); 
+    });
+
+    // ... (Keep the rest of your functions: loadInitialFeed, activityType.addEventListener, matchForm.addEventListener, etc.)
